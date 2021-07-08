@@ -27,12 +27,40 @@ spec:
   steps:
   - name: read-docs-old
     image: ubuntu
-    command: ["/bin/bash"]
-    args: ['-c', 'ls -la /workspace/damnworkspace/docs/README.md']  # tests that targetpath works
+    command: ["/bin/bash", "-c"]
+    args:
+      - |
+        ls -la /workspace/damnworkspace/docs/README.md
+        a=19900
+        b=20
+        c=4
+        for i in $(seq $a)
+        do
+          echo "Welcome for the ${i}-th time out of $a"
+        done
+        for i in $(seq $b)
+        do
+          echo "Sleeping $c seconds for the ${i}-th time out of $b"
+          sleep $c
+        done
   - name: write-new-stuff
     image: ubuntu
-    command: ['bash']
-    args: ['-c', 'ln -s /workspace/damnworkspace /workspace/output/workspace && echo some stuff > /workspace/output/workspace/stuff']
+    command: ["/bin/bash", "-c"]
+    args:
+      - |
+        ln -s /workspace/damnworkspace /workspace/output/workspace && echo some stuff > /workspace/output/workspace/stuff
+        a=20002
+        b=20
+        c=4
+        for i in $(seq $a)
+        do
+          echo "Welcome for the ${i}-th time out of $a"
+        done
+        for i in $(seq $b)
+        do
+          echo "Sleeping $c seconds for the ${i}-th time out of $b"
+          sleep $c
+        done
 ---
 # Reads a file from a predefined path in the workspace git PipelineResource
 apiVersion: tekton.dev/v1beta1
